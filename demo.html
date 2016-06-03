@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Closest color demo</title>
+
+    <!--[if lt IE 9]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<style>
+		
+		body { font-family: sans-serif; }
+
+		fieldset {
+			border: 1px solid #999;
+			display: inline-block;
+			padding-right: 2em;
+		}
+
+		label {
+			display: block;
+			font-size: 80%;
+			color: #999;
+			margin: 0.5em 0 1em;
+		}
+
+		label input {
+			display: block;
+			margin: 0.5em 0;
+			width: 100%;
+		}
+
+		input[readonly],
+		input[disabled] {
+			color: #999;
+			background: #F0F0F0; 
+		}
+
+	</style>
+
+</head>
+
+<body>
+
+	<form>
+		<fieldset>
+
+			<legend>Get closest color</legend>
+
+		    <label>
+		    	Choose any color
+		    	<input type="color" value="#4285F4" id="colorPicker" onchange="tellClosestColor(this.value)" placeholder="Type a color hex code" autofocus />
+		    </label>
+
+			<p id="paletteColors"></p>
+
+		    <label>
+		    	This is the closest color
+			    <input type="color" value="#4285F4" id="closestColor" readonly="readonly" disabled="disabled" placeholder="Closest color" />
+			</label>
+		</fieldset>
+    </form>
+
+    <script src="closestColor.js"></script>
+    <script>
+
+        var myPalette = [
+            "#4285F4",
+            "#EA4235",
+            "#FBBC05",
+            "#34A853",
+        ];
+
+        window.onload = showPalette(myPalette);
+
+        function showPalette(palette) {
+
+        	"use strict";
+
+        	var $paletteColors = document.getElementById("paletteColors");
+
+    		var $paletteLabel = document.createElement("label");
+    		$paletteLabel.innerHTML = "Your palette:";
+
+    		$paletteColors.appendChild($paletteLabel);
+
+			for (var i = 0; i < palette.length; i++) {
+
+        		var $newColor = document.createElement("input");
+
+				$newColor.setAttribute('type', 'color');
+				$newColor.setAttribute('readonly', 'readonly');
+				$newColor.setAttribute('disabled', 'disabled');
+				$newColor.setAttribute('value', palette[i]);
+
+				$paletteLabel.appendChild($newColor);
+
+        	}        	
+        }
+
+    	function tellClosestColor(pickedColor) {
+
+	        "use strict";
+
+	     	var closestColor = getClosestColor(pickedColor, myPalette);
+
+	        console.log(myPalette,"Given this color palette the closest color for " + pickedColor.toUpperCase() + " is " + closestColor.toUpperCase());
+
+	        if (typeof document.getElementById("closestColor") != "undefined") {
+	            document.getElementById("closestColor").value = closestColor;
+	        }
+
+	        return closestColor;
+
+	    }
+
+    </script>
+
+</body>
+
+</html>
