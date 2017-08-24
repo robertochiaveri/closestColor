@@ -5,7 +5,7 @@
 // an array of colors hex codes) will return the hex code of 
 // the most visually similar color in the palette
 // 
-// Usage: getClosestColor(yourColor, myPalette);
+// Usage: getClosestColor(color, palette);
 // 
 
 
